@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SELinuxModify</string>
+    <string name="action_settings">设置</string>
+    <string name="status">SELinux 模式: %1$s</string>
+    <string name="failed">运行 su 命令失败，也许您需要先 root 您的设备。</string>
+    <string name="checking">检测中...</string>
+    <string name="unknown">未知</string>
+    <string name="switch1">开关:</string>
+</resources>
