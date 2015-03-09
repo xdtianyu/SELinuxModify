@@ -67,26 +67,28 @@ public class MainActivity extends Activity {
             process = Runtime.getRuntime().exec("su");
             return true;
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.d(TAG, "execute su failed.");
             return false;
         }
     }
     
     private String getEnforce() {
         String result = "";
-        try {
-            exec("getenforce");
+        if (process!=null) {
+            try {
+                exec("getenforce");
 
-            BufferedReader stdInput = new BufferedReader(new
-                    InputStreamReader(process.getInputStream()));
-            String s = null;
-            if ((s = stdInput.readLine()) != null) {
-                Log.d(TAG, s);
-                result = s;
+                BufferedReader stdInput = new BufferedReader(new
+                        InputStreamReader(process.getInputStream()));
+                String s = null;
+                if ((s = stdInput.readLine()) != null) {
+                    Log.d(TAG, s);
+                    result = s;
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            
-        } catch (IOException e) {
-            e.printStackTrace();
         }
 
         return result;
@@ -98,12 +100,14 @@ public class MainActivity extends Activity {
     }
     
     private void exec(String cmd) {
-        DataOutputStream os = new DataOutputStream(process.getOutputStream());
-        try {
-            os.writeBytes(cmd+"\n");
-            os.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (process!=null) {
+            DataOutputStream os = new DataOutputStream(process.getOutputStream());
+            try {
+                os.writeBytes(cmd+"\n");
+                os.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
     
